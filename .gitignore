@@ -32,6 +32,7 @@ UserSettings/
 *.mdb
 *.opendb
 *.VC.db
+*.unitypackage.meta
 
 # Burst / Debug
 *_BurstDebugInformation_DoNotShip/
