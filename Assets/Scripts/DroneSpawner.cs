@@ -9,12 +9,14 @@ public class DroneSpawner : MonoBehaviour
     public Transform[] waypoints;
     public Transform playerTarget;
     public WaveUI waveUI;
+    public GameResultManager gameResultManager;
 
     [Header("Wave Settings")]
     public int startDroneCount = 3;
     public int dronesIncreasePerWave = 2;
     public float timeBetweenSpawns = 2f;
     public float timeBetweenWaves = 5f;
+    public int maxWaves = 5;
 
     [Header("Spawn Offset")]
     public float spawnOffsetX = 4f;
@@ -25,18 +27,39 @@ public class DroneSpawner : MonoBehaviour
     private int aliveDrones = 0;
     private bool isSpawning = false;
     private bool waitingForNextWave = false;
+    private bool gameStarted = false;
 
     void Start()
     {
-        StartCoroutine(StartNextWave());
+        // Waves are now started manually by GameStartManager.
     }
 
     void Update()
     {
+        if (!gameStarted) return;
+
         if (!isSpawning && !waitingForNextWave && aliveDrones <= 0)
         {
+            if (currentWave >= maxWaves)
+            {
+                if (gameResultManager != null)
+                {
+                    gameResultManager.WinGame(currentWave);
+                }
+
+                return;
+            }
+
             StartCoroutine(WaitAndStartNextWave());
         }
+    }
+
+    public void StartSpawning()
+    {
+        if (gameStarted) return;
+
+        gameStarted = true;
+        StartCoroutine(StartNextWave());
     }
 
     IEnumerator StartNextWave()
@@ -112,6 +135,11 @@ public class DroneSpawner : MonoBehaviour
         {
             aliveDrones = 0;
         }
+    }
+
+    public int GetCurrentWave()
+    {
+        return currentWave;
     }
 
     Vector3 GetSpawnOffset()
