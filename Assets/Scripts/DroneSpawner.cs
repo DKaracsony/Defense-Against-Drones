@@ -8,6 +8,7 @@ public class DroneSpawner : MonoBehaviour
     public Transform[] spawnPoints;
     public Transform[] waypoints;
     public Transform playerTarget;
+    public WaveUI waveUI;
 
     [Header("Wave Settings")]
     public int startDroneCount = 3;
@@ -15,20 +16,40 @@ public class DroneSpawner : MonoBehaviour
     public float timeBetweenSpawns = 2f;
     public float timeBetweenWaves = 5f;
 
+    [Header("Spawn Offset")]
+    public float spawnOffsetX = 4f;
+    public float spawnOffsetY = 1.5f;
+    public float spawnOffsetZ = 4f;
+
     private int currentWave = 0;
     private int aliveDrones = 0;
     private bool isSpawning = false;
+    private bool waitingForNextWave = false;
 
     void Start()
     {
         StartCoroutine(StartNextWave());
     }
 
+    void Update()
+    {
+        if (!isSpawning && !waitingForNextWave && aliveDrones <= 0)
+        {
+            StartCoroutine(WaitAndStartNextWave());
+        }
+    }
+
     IEnumerator StartNextWave()
     {
         isSpawning = true;
+        waitingForNextWave = false;
 
         currentWave++;
+
+        if (waveUI != null)
+        {
+            waveUI.ShowWave(currentWave);
+        }
 
         int dronesToSpawn = startDroneCount + (currentWave - 1) * dronesIncreasePerWave;
 
@@ -41,17 +62,9 @@ public class DroneSpawner : MonoBehaviour
         isSpawning = false;
     }
 
-    void Update()
-    {
-        if (!isSpawning && aliveDrones <= 0)
-        {
-            StartCoroutine(WaitAndStartNextWave());
-        }
-    }
-
     IEnumerator WaitAndStartNextWave()
     {
-        isSpawning = true;
+        waitingForNextWave = true;
 
         yield return new WaitForSeconds(timeBetweenWaves);
 
@@ -60,13 +73,16 @@ public class DroneSpawner : MonoBehaviour
 
     void SpawnDrone()
     {
-        if (dronePrefab == null || spawnPoints.Length == 0) return;
+        if (dronePrefab == null || spawnPoints == null || spawnPoints.Length == 0)
+        {
+            return;
+        }
 
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
         GameObject newDrone = Instantiate(
             dronePrefab,
-            spawnPoint.position,
+            spawnPoint.position + GetSpawnOffset(),
             spawnPoint.rotation
         );
 
@@ -91,5 +107,19 @@ public class DroneSpawner : MonoBehaviour
     public void DroneDestroyed()
     {
         aliveDrones--;
+
+        if (aliveDrones < 0)
+        {
+            aliveDrones = 0;
+        }
+    }
+
+    Vector3 GetSpawnOffset()
+    {
+        return new Vector3(
+            Random.Range(-spawnOffsetX, spawnOffsetX),
+            Random.Range(-spawnOffsetY, spawnOffsetY),
+            Random.Range(-spawnOffsetZ, spawnOffsetZ)
+        );
     }
 }

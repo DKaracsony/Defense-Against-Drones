@@ -7,6 +7,10 @@ public class DronePathShooter : MonoBehaviour
     public float speed = 4f;
     public float rotationSpeed = 5f;
 
+    [Header("Avoid Overlap")]
+    public float pathOffsetRange = 5f;
+    private Vector3 pathOffset;
+
     [Header("Shooting")]
     public Transform playerTarget;
     public Transform firePoint;
@@ -18,6 +22,15 @@ public class DronePathShooter : MonoBehaviour
     private int currentWaypointIndex = 0;
     private float nextFireTime = 0f;
 
+    void Start()
+    {
+        pathOffset = new Vector3(
+            Random.Range(-pathOffsetRange, pathOffsetRange),
+            Random.Range(-1f, 1f),
+            Random.Range(-pathOffsetRange, pathOffsetRange)
+        );
+    }
+
     void Update()
     {
         MoveOnPath();
@@ -28,11 +41,11 @@ public class DronePathShooter : MonoBehaviour
     {
         if (waypoints == null || waypoints.Length == 0) return;
 
-        Transform targetWaypoint = waypoints[currentWaypointIndex];
+        Vector3 targetPosition = waypoints[currentWaypointIndex].position + pathOffset;
 
         transform.position = Vector3.MoveTowards(
             transform.position,
-            targetWaypoint.position,
+            targetPosition,
             speed * Time.deltaTime
         );
 
@@ -43,6 +56,7 @@ public class DronePathShooter : MonoBehaviour
                 0,
                 playerTarget.position.z - transform.position.z
             );
+
             if (direction.sqrMagnitude > 0.001f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
@@ -54,7 +68,7 @@ public class DronePathShooter : MonoBehaviour
             }
         }
 
-        if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.3f)
+        if (Vector3.Distance(transform.position, targetPosition) < 0.3f)
         {
             currentWaypointIndex++;
 
