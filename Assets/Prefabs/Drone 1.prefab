@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 0, y: 86.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4235728562910197921
@@ -142,7 +142,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2}
+  m_AnchoredPosition: {x: 0, y: 2.16}
   m_SizeDelta: {x: 34.5143, y: 12.2269}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7707657794628006345
@@ -241,7 +241,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 0.010002136, y: 86.49999}
+  m_AnchoredPosition: {x: 0.010002136, y: 0}
   m_SizeDelta: {x: -9.99, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6309809086710966432
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.05704665, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -355,7 +355,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 49.8}
+  m_AnchoredPosition: {x: 0, y: -10.71}
   m_SizeDelta: {x: 160, y: 41.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8829022882551663891
@@ -435,7 +435,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 28723f10c2a8e094a9351e892f5271b8, type: 3}
       propertyPath: m_Name
-      value: Drone
+      value: Drone 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 28723f10c2a8e094a9351e892f5271b8, type: 3}
       propertyPath: m_RootOrder
@@ -501,9 +501,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 28723f10c2a8e094a9351e892f5271b8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8202527742652097224}
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: 28723f10c2a8e094a9351e892f5271b8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -4147045789647105044}
   m_SourcePrefab: {fileID: 100100000, guid: 28723f10c2a8e094a9351e892f5271b8, type: 3}
 --- !u!4 &5269881029104038666 stripped
 Transform:
@@ -534,7 +531,6 @@ MonoBehaviour:
   - {fileID: 0}
   speed: 4
   rotationSpeed: 5
-  pathOffsetRange: 5
   playerTarget: {fileID: 0}
   firePoint: {fileID: 6279668323664733151}
   bulletPrefab: {fileID: 1800842761829922183, guid: 7a738e6da6d73684ebddc52059dd7742, type: 3}
@@ -555,26 +551,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DroneHealth
   maxHealth: 100
   explosionEffect: {fileID: 1406544835987072750, guid: 7a1bb30b44361dd4499ed199e00183ad, type: 3}
-  healthBar: {fileID: 5803920715123360400}
+  healthBar: {fileID: 0}
   spawner: {fileID: 0}
---- !u!65 &-4147045789647105044
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269881029104463658}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.5754952, y: 3.3034472, z: 3.9624016}
-  m_Center: {x: -0.000000059604645, y: 0.1767767, z: 0.00000011920929}

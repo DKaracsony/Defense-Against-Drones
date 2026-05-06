@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class DroneHealth : MonoBehaviour
 {
+    [Header("Health")]
     public int maxHealth = 100;
+
+    [Header("Effects")]
     public GameObject explosionEffect;
+
+    [Header("UI")]
     public HealthBar healthBar;
 
-    [HideInInspector] public DroneSpawner spawner;
-
-    [Header("DEBUG")]
-    [Range(0, 100)]
-    public int debugHealth = 100;
+    [HideInInspector]
+    public DroneSpawner spawner;
 
     private int currentHealth;
     private bool isDead = false;
@@ -22,21 +24,6 @@ public class DroneHealth : MonoBehaviour
         if (healthBar != null)
         {
             healthBar.UpdateHealthBar(currentHealth, maxHealth);
-        }
-    }
-
-    void OnValidate()
-    {
-        currentHealth = debugHealth;
-
-        if (healthBar != null)
-        {
-            healthBar.UpdateHealthBar(currentHealth, maxHealth);
-        }
-
-        if (currentHealth <= 0 && !isDead && Application.isPlaying)
-        {
-            Die();
         }
     }
 
@@ -60,31 +47,36 @@ public class DroneHealth : MonoBehaviour
 
     void Die()
     {
+        if (isDead) return;
+
         isDead = true;
 
+        // Wave rendszer értesítése
         if (spawner != null)
         {
             spawner.DroneDestroyed();
         }
 
+        // Robbanás effekt
         if (explosionEffect != null)
         {
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            GameObject explosion = Instantiate(
+                explosionEffect,
+                transform.position + Vector3.up * 1f,
+                Quaternion.identity
+            );
+
+            ParticleSystem ps = explosion.GetComponent<ParticleSystem>();
+
+            if (ps != null)
+            {
+                ps.Play();
+            }
+
+            Destroy(explosion, 3f);
         }
 
+        // Drone törlése
         Destroy(gameObject);
-    }
-
-    // 🔥 Inspector teszt
-    [ContextMenu("TEST DAMAGE")]
-    void TestDamage()
-    {
-        TakeDamage(25);
-    }
-
-    [ContextMenu("TEST DIE")]
-    void TestDie()
-    {
-        Die();
     }
 }

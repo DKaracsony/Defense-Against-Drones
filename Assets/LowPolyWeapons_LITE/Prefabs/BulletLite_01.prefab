@@ -237,6 +237,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4239277815306136001}
   - component: {fileID: 7289892399758541776}
+  - component: {fileID: 6381457592089868643}
+  - component: {fileID: 6904593882782992736}
   m_Layer: 0
   m_Name: BulletLite_01
   m_TagString: Untagged
@@ -288,3 +290,39 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &6381457592089868643
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3575611928538805115}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.013780827
+  m_Height: 0.02756166
+  m_Direction: 1
+  m_Center: {x: 0.0076178014, y: 0.004922567, z: 0.00072734244}
+--- !u!114 &6904593882782992736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3575611928538805115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d25fc73b8a5994ea8b8952fd1efae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBullet
+  damage: 25
