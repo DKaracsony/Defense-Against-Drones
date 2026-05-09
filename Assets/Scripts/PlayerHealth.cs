@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -6,9 +5,6 @@ public class PlayerHealth : MonoBehaviour
     [Header("Health")]
     public int maxHealth = 100;
     public int currentHealth;
-
-    [Header("UI")]
-    public TextMeshProUGUI healthText;
 
     [Header("Result")]
     public GameResultManager gameResultManager;
@@ -19,7 +15,6 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        UpdateHealthText();
     }
 
     public void TakeDamage(int damage)
@@ -29,19 +24,9 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        UpdateHealthText();
-
         if (currentHealth <= 0)
         {
             Die();
-        }
-    }
-
-    void UpdateHealthText()
-    {
-        if (healthText != null)
-        {
-            healthText.text = "HP: " + currentHealth;
         }
     }
 
